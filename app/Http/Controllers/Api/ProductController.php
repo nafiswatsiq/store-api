@@ -6,15 +6,29 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::with('category', 'images')->get();
+        if ($request->has('offset') && $request->has('limit')) {
+            $products = Product::with('category', 'images')
+                ->offset($request->offset)
+                ->limit($request->limit)
+                ->get();
+        } else if($request->has('limit')) {
+            $products = Product::with('category', 'images')
+                ->limit($request->limit)
+                ->get();
+        } else {
+            $products = Product::with('category', 'images')->get();
+        }
 
-        return response()->json($products, 200);
+        $productsCollection = ProductResource::collection($products);
+
+        return response()->json($productsCollection, 200);
     }
 
     public function store(Request $request)
@@ -33,40 +47,26 @@ class ProductController extends Controller
             ], 422);
         }
         
-        // $product = Product::create([
-        //     'title' => $request->title,
-        //     'slug' => Str::slug($request->title),
-        //     'price' => $request->price,
-        //     'description' => $request->description,
-        //     'category_id' => $request->category_id
-        // ]);
+        $product = Product::create([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'price' => $request->price,
+            'description' => $request->description,
+            'category_id' => $request->category_id
+        ]);
         
-        // $img = [];
-        // foreach ($request->file('images') as $image) {
-            // $path = $image->store('images', 'public');
-            // $imageUrl = url('storage/' . $path);
+        foreach ($request->file('images') as $image) {
+            $path = $image->store('images', 'public');
+            $imageUrl = url('storage/' . $path);
 
-            // $product->images()->create([
-            //     'url' => $imageUrl
-            // ]);
-        //     $img[] = $image->getClientOriginalName();
-        // }
-
-        if ($request->hasFile('images')){
-            $fileImages = $request->file('images')->getClientOriginalName();
-
-            // $files = [];
-            // foreach ($fileImages as $image) {
-            //     $fileName = $image->getClientOriginalName();
-            //     $files[] = $fileName;
-            // }
-
-            return response()->json([
-                'error' => false,
-                'message' => 'Product created successfully.',
-                'images' => $fileImages
-            ], 201);
+            $product->images()->create([
+                'url' => $imageUrl
+            ]);
         }
 
+        return response()->json([
+            'error' => false,
+            'message' => 'Product created successfully.'
+        ], 201);
     }
 }
