@@ -64,6 +64,12 @@ class ProductController extends Controller
             ]);
         }
 
+        if ($request->has('additional')) {
+            $product->additional()->create([
+                'additional' => $request->additional
+            ]);
+        }
+
         return response()->json([
             'error' => false,
             'message' => 'Product created successfully.'

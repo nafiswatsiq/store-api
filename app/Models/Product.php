@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ProductAdditional;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -25,5 +26,10 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function additional()
+    {
+        return $this->hasOne(ProductAdditional::class);
     }
 }
