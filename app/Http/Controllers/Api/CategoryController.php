@@ -31,9 +31,14 @@ class CategoryController extends Controller
             ], 422);
         }
 
-        $path = $request->file('image')->store('images', 'public');
+        if($request->hasFile('image')) {
 
-        $imageUrl = url('storage/' . $path);
+            $path = $request->file('image')->store('images', 'public');
+    
+            $imageUrl = url('storage/' . $path);
+        }else{
+            $imageUrl = $request->image;
+        }
 
         $category = Category::create([
             'name' => $request->name,

@@ -31,6 +31,26 @@ class ProductController extends Controller
         return response()->json($productsCollection, 200);
     }
 
+    public function singgle($id)
+    {
+        $product = Product::with('category', 'images')->find($id);
+
+        if (!$product) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Product not found.'
+            ], 404);
+        }
+
+        if ($product->additional) {
+            $product->with('addition');
+        }
+
+        $productResource = new ProductResource($product);
+        
+        return response()->json($productResource, 200);
+    }
+
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(),[
@@ -55,17 +75,25 @@ class ProductController extends Controller
             'category_id' => $request->category_id
         ]);
         
-        foreach ($request->file('images') as $image) {
-            $path = $image->store('images', 'public');
-            $imageUrl = url('storage/' . $path);
-
-            $product->images()->create([
-                'url' => $imageUrl
-            ]);
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $image){
+                $path = $image->store('images', 'public');
+                $imageUrl = url('storage/' . $path);
+                
+                $product->images()->create([
+                    'url' => $imageUrl
+                ]);
+            }
+        }else{
+            foreach($request->images as $image){
+                $product->images()->create([
+                    'url' => $image
+                ]);
+            }
         }
 
         if ($request->has('additional')) {
-            $product->additional()->create([
+            $product->addition()->create([
                 'additional' => $request->additional
             ]);
         }

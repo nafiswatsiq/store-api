@@ -28,7 +28,7 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function additional()
+    public function addition()
     {
         return $this->hasOne(ProductAdditional::class);
     }
