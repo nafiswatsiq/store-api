@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\SingleProductResource;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -46,7 +47,7 @@ class ProductController extends Controller
             $product->with('addition');
         }
 
-        $productResource = new ProductResource($product);
+        $productResource = new SingleProductResource($product);
         
         return response()->json($productResource, 200);
     }
