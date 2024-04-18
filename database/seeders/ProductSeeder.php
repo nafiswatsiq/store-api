@@ -36,7 +36,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 5,
@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 6,
@@ -80,7 +80,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 8,
@@ -102,7 +102,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 9,
@@ -124,7 +124,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 10,
@@ -146,7 +146,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 11,
@@ -168,7 +168,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 12,
@@ -190,7 +190,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 14,
@@ -212,7 +212,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 16,
@@ -234,7 +234,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 17,
@@ -256,7 +256,7 @@ class ProductSeeder extends Seeder
                     "creationAt" => "2024-04-15T19:06:34.000Z",
                     "updatedAt" => "2024-04-15T19:06:34.000Z",
                 ],
-                "additional" => '["S","M","L","XL"]'
+                "additional" => "S,M,L,XL"
             ],
             [
                 "id" => 18,
