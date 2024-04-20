@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SingleProductResource;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -15,10 +16,18 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->has('offset') && $request->has('limit')) {
-            $products = Product::with('category', 'images')
-                ->offset($request->offset)
-                ->limit($request->limit)
-                ->get();
+            if ($request->category == null) {
+                $products = Product::with('category', 'images')
+                    ->offset($request->offset)
+                    ->limit($request->limit)
+                    ->get();
+            }else{
+                $products = Product::with('category', 'images')
+                    ->where('category_id', Category::where('slug', $request->category)->first()->id)
+                    ->offset($request->offset)
+                    ->limit($request->limit)
+                    ->get();
+            }
         } else if($request->has('limit')) {
             $products = Product::with('category', 'images')
                 ->limit($request->limit)
