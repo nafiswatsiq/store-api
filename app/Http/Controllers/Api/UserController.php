@@ -34,11 +34,11 @@ class UserController extends Controller
             }
 
             $token = $user->createToken('api-token', expiresAt:now()->addHours(3))->plainTextToken;
-            $user['token'] = $token;
         }
      
         return response()->json([
             'error' => false,
+            'token' => $token,
             'user' => $user,
         ], 200);
     }
