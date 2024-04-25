@@ -30,6 +30,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile' => 'https://source.boringavatars.com/beam/120/'.$request->name.''
         ]);
 
         $token = $user->createToken('api-token', expiresAt:now()->addHours(3))->plainTextToken;
@@ -60,7 +61,7 @@ class UserController extends Controller
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response()->json([
                 'error' => true,
-                'message' => 'The provided credentials are incorrect.'
+                'message' => 'Username or password is incorrect.'
             ], 401);
         }
 
