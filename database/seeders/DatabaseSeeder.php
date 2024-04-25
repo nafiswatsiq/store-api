@@ -22,15 +22,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        // $this->call([
-        //     CategorySeeder::class,
-        //     ProductSeeder::class,
-        // ]);
+        $this->call([
+            CategorySeeder::class,
+            ProductSeeder::class,
+        ]);
 
         User::create([
             'name' => 'Test User',
             'email' => 'test@gmail.com',
             'password' => Hash::make('123'),
+            'profile' => 'https://source.boringavatars.com/beam/120/Test User'
         ]);
     }
 }
