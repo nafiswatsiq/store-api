@@ -29,7 +29,7 @@ class CartController extends Controller
             'product_id' => 'required',
             'quantity' => 'required',
             'price' => 'required',
-            'size' => 'required'
+            'size' => 'nullable'
         ]);
 
         if ($validate->fails()) {
@@ -39,13 +39,20 @@ class CartController extends Controller
             ], 400);
         }
 
-        Cart::create([
-            'user_id' => auth()->user()->id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'size' => $request->size ?? null
-        ]);
+        if (Cart::where('product_id', $request->product_id)->where('user_id', auth()->user()->id)->where('size', $request->size)->exists()) {
+            $cart = Cart::where('product_id', $request->product_id)->where('user_id', auth()->user()->id)->first();
+            $cart->update([
+                'quantity' => $cart->quantity + $request->quantity
+            ]);
+        }else{
+            Cart::create([
+                'user_id' => auth()->user()->id,
+                'product_id' => $request->product_id,
+                'quantity' => $request->quantity,
+                'price' => $request->price,
+                'size' => $request->size ?? null
+            ]);
+        }
         
         return response()->json([
             'error' => false,
@@ -55,6 +62,22 @@ class CartController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validate = Validator::make($request->all(), [
+            'quantity' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => true,
+                'message' => $validate->errors()
+            ], 400);
+        }
+
+        $cart = Cart::find($id);
+        $cart->update([
+            'quantity' => $request->quantity
+        ]);
+
         return response()->json([
             'error' => false,
             'message' => 'Cart updated'
@@ -63,6 +86,8 @@ class CartController extends Controller
 
     public function destroy($id)
     {
+        Cart::destroy($id);
+
         return response()->json([
             'error' => false,
             'message' => 'Cart deleted'

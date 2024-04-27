@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -33,7 +34,7 @@ class UserController extends Controller
             'profile' => 'https://source.boringavatars.com/beam/120/'.$request->name.''
         ]);
 
-        $token = $user->createToken('api-token', expiresAt:now()->addHours(3))->plainTextToken;
+        $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
             'error' => false,
