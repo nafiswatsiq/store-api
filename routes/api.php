@@ -22,6 +22,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart', [CartController::class, 'store']);
     Route::patch('/cart/{id}', [CartController::class, 'update']);
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+
+    Route::get('/address', [UserController::class, 'getAddress']);
+    Route::post('/address', [UserController::class, 'addAddress']);
+    Route::delete('/address/{id}', [UserController::class, 'deleteAddress']);
 });
 
 Route::get('/categories', [CategoryController::class, 'index']);
