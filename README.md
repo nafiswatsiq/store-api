@@ -2,10 +2,7 @@
 ### API DOCUMENTATION
 <a href="https://documenter.getpostman.com/view/18242897/2sA3JDhR6P">Dokumentasi API</a>
 
-<embed
-    src="https://documenter.getpostman.com/view/18242897/2sA3JDhR6P"
-    width="500" height="200"
-/>
+<iframe src="https://documenter.getpostman.com/view/18242897/2sA3JDhR6P" height="1000" width="1000" title="Iframe Example"></iframe>
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
@@ -14,6 +11,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+
 </p>
 
 ## About Laravel
