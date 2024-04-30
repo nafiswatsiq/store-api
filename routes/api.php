@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\CartController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\DeliveryCharge;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CategoryController;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth', [UserController::class, 'checkAuth']);
 Route::post('/register', [UserController::class, 'register']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [UserController::class, 'user']);   
     Route::post('/logout', [UserController::class, 'logout']);
 
@@ -26,6 +28,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/address', [UserController::class, 'getAddress']);
     Route::post('/address', [UserController::class, 'addAddress']);
     Route::delete('/address/{id}', [UserController::class, 'deleteAddress']);
+
+    Route::get('/delivery/province', [DeliveryCharge::class, 'getProvince']);
+    Route::get('/delivery/province/{id}', [DeliveryCharge::class, 'getProvinceById']);
+    Route::get('/delivery/province/{id}/city', [DeliveryCharge::class, 'getCity']);
+    Route::get('/delivery/province/{id}/city/{city_id}', [DeliveryCharge::class, 'getCityById']);
+    Route::post('/delivery/cost', [DeliveryCharge::class, 'getCost']);
+    Route::get('/delivery/expedition', [DeliveryCharge::class, 'getExpedition']);
 });
 
 Route::get('/categories', [CategoryController::class, 'index']);

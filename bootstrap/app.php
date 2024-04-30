@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,7 +17,31 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        $middleware->redirectGuestsTo(function (Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Unauthenticated.'
+                ], 401);
+            } else {
+                // return route('...');
+            }
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Record not found.'
+                ], 404);
+            }
+        });
+
+        $exceptions->render(function (AuthenticationException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 401);
+            }
+        });
+        
     })->create();
