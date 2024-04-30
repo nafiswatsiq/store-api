@@ -16,9 +16,19 @@ use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 Route::post('/auth', [UserController::class, 'checkAuth']);
 Route::post('/register', [UserController::class, 'register']);
 
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::post('/categories', [CategoryController::class, 'store']);
+
+Route::get('/products', [ProductController::class, 'index']);
+
+Route::get('/products/{id}', [ProductController::class, 'singgle']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [UserController::class, 'user']);   
     Route::post('/logout', [UserController::class, 'logout']);
+
+    Route::post('/products', [ProductController::class, 'store']);
 
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart', [CartController::class, 'store']);
@@ -36,11 +46,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/delivery/cost', [DeliveryCharge::class, 'getCost']);
     Route::get('/delivery/expedition', [DeliveryCharge::class, 'getExpedition']);
 });
-
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::post('/categories', [CategoryController::class, 'store']);
-
-Route::get('/products', [ProductController::class, 'index']);
-Route::post('/products', [ProductController::class, 'store']);
-
-Route::get('/products/{id}', [ProductController::class, 'singgle']);
