@@ -2,25 +2,38 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Expedition;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Expedition;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class DeliveryCharge extends Controller
 {
     public function getProvince(Request $request)
     {
-        $response  = Http::withHeaders([
-            'key' => env('RAJAONGKIR_API_KEY'),
-            'Accept' => 'application/json',
-        ])->get(env('RAJAONGKIR_API_URL') . '/province');
-        
-        $data = $response->json();
+        $cacheProvince = Cache::get('province');
+
+        if ($cacheProvince) {
+            // Menggunakan data $users dari cache
+            $data = $cacheProvince;
+        } else {
+            // Data tidak ditemukan di cache
+            $response  = Http::withHeaders([
+                'key' => env('RAJAONGKIR_API_KEY'),
+                'Accept' => 'application/json',
+            ])->get(env('RAJAONGKIR_API_URL') . '/province');
+            
+            $data = $response->json();
+            $data = $data['rajaongkir']['results'];
+
+            Cache::put('province', $data, 30 * 24 * 60 * 60);
+        }
+
         return response()->json([
-            'error' => false,
-            'data' => $data['rajaongkir']['results']
+            'error' => false,   
+            'data' => $data
         ], 200);
     }
 
@@ -95,7 +108,7 @@ class DeliveryCharge extends Controller
         $data = $response->json();
         return response()->json([
             'error' => false,
-            'data' => $data['rajaongkir']['results']
+            'data' => $data['rajaongkir']['results'][0]
         ], 200);
     }
 

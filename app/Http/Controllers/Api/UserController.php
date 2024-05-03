@@ -35,7 +35,7 @@ class UserController extends Controller
             'profile' => 'https://source.boringavatars.com/beam/120/'.$request->name.''
         ]);
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken('api-token', expiresAt:now()->addHours(3))->plainTextToken;
 
         return response()->json([
             'error' => false,
