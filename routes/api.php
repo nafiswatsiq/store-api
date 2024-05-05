@@ -21,6 +21,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::post('/categories', [CategoryController::class, 'store']);
 
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/search', [ProductController::class, 'search']);
 
 Route::get('/products/{id}', [ProductController::class, 'singgle']);
 

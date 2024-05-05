@@ -113,4 +113,13 @@ class ProductController extends Controller
             'message' => 'Product created successfully.'
         ], 201);
     }
+
+    public function search(Request $request)
+    {
+        $products = Product::where('title', 'like', '%' . $request->q . '%')->get();
+
+        $productsCollection = ProductResource::collection($products);
+
+        return response()->json($productsCollection, 200);
+    }
 }
