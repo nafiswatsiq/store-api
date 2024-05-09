@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\DeliveryCharge;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
@@ -39,6 +40,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/address', [UserController::class, 'getAddress']);
     Route::post('/address', [UserController::class, 'addAddress']);
     Route::delete('/address/{id}', [UserController::class, 'deleteAddress']);
+
+    Route::get('/likes', [LikeController::class, 'getLikes']);
+    Route::post('/likes/add', [LikeController::class, 'addLikes']);
 
     Route::get('/delivery/province', [DeliveryCharge::class, 'getProvince']);
     Route::get('/delivery/province/{id}', [DeliveryCharge::class, 'getProvinceById']);
