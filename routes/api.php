@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\OrderController;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 // Route::get('/user', function (Request $request) {
@@ -50,4 +51,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/delivery/province/{id}/city/{city_id}', [DeliveryCharge::class, 'getCityById']);
     Route::post('/delivery/cost', [DeliveryCharge::class, 'getCost']);
     Route::get('/delivery/expedition', [DeliveryCharge::class, 'getExpedition']);
+
+    Route::post('/order', [OrderController::class, 'order']);
+    Route::get('/order', [OrderController::class, 'getOrder']);
 });

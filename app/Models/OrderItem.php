@@ -13,4 +13,14 @@ class OrderItem extends Model
         'order_id',
         'cart_id'
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
 }
