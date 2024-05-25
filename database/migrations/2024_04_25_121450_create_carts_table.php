@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('price');
             $table->string('size')->nullable();
+            $table->boolean('is_checked_out')->default(false);
             $table->timestamps();
         });
     }
