@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/address/{id}', [UserController::class, 'deleteAddress']);
 
     Route::get('/likes', [LikeController::class, 'getLikes']);
-    Route::post('/likes/add', [LikeController::class, 'addLikes']);
+    Route::post('/likes', [LikeController::class, 'addLikes']);
 
     Route::get('/delivery/province', [DeliveryCharge::class, 'getProvince']);
     Route::get('/delivery/province/{id}', [DeliveryCharge::class, 'getProvinceById']);

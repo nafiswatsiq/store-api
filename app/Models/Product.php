@@ -32,4 +32,9 @@ class Product extends Model
     {
         return $this->hasOne(ProductAdditional::class);
     }
+
+    public function like()
+    {
+        return $this->belongsTo(Like::class);
+    }
 }
