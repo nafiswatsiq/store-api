@@ -12,7 +12,8 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart = Cart::where('user_id', auth()->user()->id)->get();
+        $cart = Cart::where('user_id', auth()->user()->id)
+                    ->where('is_checked_out', false)->get();
         $cart->load('product.images');
 
         $cartCollection = CartResource::collection($cart);
