@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -155,6 +156,41 @@ class UserController extends Controller
         return response()->json([
             'error' => false,
             'message' => 'Address deleted successfully.'
+        ], 200);
+    }
+
+    public function checkAuthGoogle(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'access_token' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => true,
+                'message' => $validate->errors()
+            ], 400);
+        }
+
+        $googleUser = Socialite::driver('google')->stateless()->userFromToken($request->access_token);
+
+        $user = User::where('email', $googleUser->email)->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $googleUser->name,
+                'email' => $googleUser->email,
+                'password' => Hash::make($googleUser->id),
+                'profile' => $googleUser->avatar
+            ]);
+        }
+
+        $token = $user->createToken('api-token', expiresAt:now()->addHours(3))->plainTextToken;
+
+        return response()->json([
+            'error' => false,
+            'token' => $token,
+            'user' => $user,
         ], 200);
     }
 }
